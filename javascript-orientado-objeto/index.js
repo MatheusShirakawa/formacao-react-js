@@ -1,12 +1,34 @@
-const cliente1Nome = "Ricardo";
-const cliente1Cpf = 11122233309;
-const cliente1Agencia = 1001;
-const cliente1Saldo = 0;
+class Cliente{
+    nome;
+    cpf;
+}
 
-const cliente2Nome = "Alice";
-const cliente2Cpf = 88822233309;
-const cliente2Agencia = 1001;
-const cliente2Saldo = 0;
+class ContaCorrente{
+    agencia;
+    // #saldo https://github.com/tc39/proposal-class-fields#private-fields
+    _saldo = 0;
 
-console.log(cliente1Nome);
+    sacar(valor){
+        if(this._saldo >= valor){
+            this._saldo -= valor;
+            return valor;
+        }
+    }
+
+    depositar(valor){
+        if(valor <= 0) return;
+        this._saldo += valor;
+    }
+}
+
+const contaCorrenteRicardo = new ContaCorrente();
+contaCorrenteRicardo._saldo = 0;
+contaCorrenteRicardo.agencia = 1001;
+
+contaCorrenteRicardo.depositar(100);
+contaCorrenteRicardo.depositar(200);
+const valorSacado = contaCorrenteRicardo.sacar(50);
+
+console.log(valorSacado);
+console.log(contaCorrenteRicardo);
 
